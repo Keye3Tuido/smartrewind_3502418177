@@ -1,5 +1,5 @@
 local SmartRewind=RegisterMod('SmartRewind',1)
-SmartRewind.Version='3.2.1'
+SmartRewind.Version='3.3.0'
 local json=require('json')
 local fontname=[[youyuan]]
 local fontsize=.35
@@ -147,7 +147,7 @@ local posX, posY = 5, Isaac.GetScreenHeight()
 local dragging = false
 local dragOffsetX, dragOffsetY = 0, 0
 local lastMouseLeftPressed = false -- 跟踪左键状态
-local lastMouseMiddlePressed = false -- 跟踪中键状态
+local lastMouseRightPressed = false -- 跟踪右键状态
 
 SmartRewind:AddCallback(ModCallbacks.MC_POST_RENDER,function(self)
     if not Options.MouseControl then
@@ -175,15 +175,15 @@ SmartRewind:AddCallback(ModCallbacks.MC_POST_RENDER,function(self)
     local mouseInIcon = (mouseX >= iconArea.left and mouseX <= iconArea.right and
                        mouseY >= iconArea.top and mouseY <= iconArea.bottom)
     
-    -- 右键拖动处理
-    if not dragging and mouseRightPressed then
+    -- 中键拖动处理
+    if not dragging and mouseMiddlePressed then
         if mouseInIcon then
             dragging = true
             dragOffsetX = mouseX - posX
             dragOffsetY = mouseY - posY
         end
     elseif dragging then
-        if mouseRightPressed then
+        if mouseMiddlePressed then
             posX = mouseX - dragOffsetX
             posY = mouseY - dragOffsetY
         else
@@ -209,7 +209,7 @@ SmartRewind:AddCallback(ModCallbacks.MC_POST_RENDER,function(self)
             self:Save()
             showMessage = true
         end
-        if lastMouseMiddlePressed and not mouseMiddlePressed then
+        if lastMouseRightPressed and not mouseRightPressed then
             useRewind = not useRewind
             self:Save()
             showMessage = true
@@ -217,7 +217,7 @@ SmartRewind:AddCallback(ModCallbacks.MC_POST_RENDER,function(self)
 
     end
     lastMouseLeftPressed = mouseLeftPressed
-    lastMouseMiddlePressed = mouseMiddlePressed
+    lastMouseRightPressed = mouseRightPressed
     
     -- 限制图标位置在屏幕内
     posX = math.max(4, math.min(Isaac.GetScreenWidth() - iconWidth - 4, posX))
@@ -306,16 +306,16 @@ SmartRewind:AddCallback(ModCallbacks.MC_POST_RENDER,function()
         end
         if useRewind and autoRewindEnabled then
             helpCN1={'当前后悔操作 : 使用发光沙漏，',' 并在下一帧使用 rewind 指令','(更精准)，'}
-            helpCN2={'','','若要禁用指令，请',' 中键点击图标'}
+            helpCN2={'','','若要禁用指令，请',' 右键点击图标'}
             helpEN1={'Current Rewind Action : Use Glowing Hourglass, and',}
             helpEN2={'',' use REWIND COMMAND in the next frame','(more precise),'}
-            helpEN3={'','','to disable the command, please',' Middle-Click the icon'}
+            helpEN3={'','','to disable the command, please',' Right-Click the icon'}
             kcolor1,kcolor2=KColor.Green,KColor.Cyan
         elseif autoRewindEnabled then
             helpCN1={'当前后悔操作 : ',' 仅使用发光沙漏','(更兼容)，'}
-            helpCN2={'','','若要启用指令，请',' 中键点击图标'}
+            helpCN2={'','','若要启用指令，请',' 右键点击图标'}
             helpEN1={'Current Rewind Action :',' ONLY use Glowing Hourglass','(more compatible),'}
-            helpEN2={'','','to enable the command, please ',' Middle-Click the icon'}
+            helpEN2={'','','to enable the command, please ',' Right-Click the icon'}
             helpEN3={''}
             kcolor1,kcolor2=KColor.Cyan,KColor.Green
         end

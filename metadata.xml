@@ -5,7 +5,7 @@
     <id>3502418177</id>
     <description>[h1]角色死亡或受到惩罚伤害时自动后悔[/h1]
 [h1]AutoRewind Upon Death or PenaltyDMG[/h1]
-[h2]屏幕左下角会显示本局游戏自动触发rewind的次数，可按住鼠标右键拖动图标位置[/h2]
+[h2]屏幕左下角会显示本局游戏自动触发rewind的次数，可按住鼠标中键拖动图标位置[/h2]
 [h2]左键点击图标可切换rewind功能[/h2]
 [list]
 [*]关闭状态，图标是灰色的小沙漏
@@ -32,10 +32,10 @@
 [*]如果角色拥有发光沙漏道具，触发发光沙漏后会对后悔次数造成消耗。
 [/olist]
 
-如果你依然希望切换在死亡时的后悔行为（使用rewind或发光沙漏），请用中键点击图标。
+如果你依然希望切换在死亡时的后悔行为（使用rewind或发光沙漏），请用右键点击图标。
 [hr][/hr]
 </description>
-    <version>3.2.1</version>
+    <version>3.3.0</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Tweaks"/>
